@@ -1,6 +1,7 @@
 // imports - third-party modules
 import express from 'express'
 
+// imports - module imports
 import CONFIG  from './Config'
 import Logger  from './Logger'
 
