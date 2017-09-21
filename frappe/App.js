@@ -3,6 +3,7 @@ import express from 'express'
 
 // imports - module imports
 import CONFIG  from './Config'
+import Router  from './Router'
 import Logger  from './Logger'
 
 class App
@@ -10,6 +11,7 @@ class App
     constructor ( )
     {
         this.express = express()
+        this.router  = new Router()
     }
 
     run (host = null, port = null, debug = null)
@@ -25,7 +27,10 @@ class App
         })
     }
 
+    get(uri, callback) 
+    {
 
+    }
 }
 
 export default App

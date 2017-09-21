@@ -8,7 +8,11 @@
 
 #### Quickstart
 ```js
-> import frappe from 'frappe'
-> app = frappe.App()
-> app.run()
+import frappe from 'frappe'
+app = frappe.App()
+app.get('/', () => {
+    return 'Hello, World!'
+})
+
+app.run()
 ```
