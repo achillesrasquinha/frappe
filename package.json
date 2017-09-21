@@ -1,0 +1,36 @@
+{
+  "name": "frappe",
+  "version": "0.1.0",
+  "description": "Node.js web app framework",
+  "main": "frappe/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frappe/frappe.git"
+  },
+  "keywords": [
+    "frappe",
+    "nodejs",
+    "web",
+    "app",
+    "framework"
+  ],
+  "author": "Achilles Rasquinha",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/frappe/frappe/issues"
+  },
+  "homepage": "https://github.com/frappe/frappe#readme",
+  "dependencies": {
+    "chalk": "^2.1.0",
+    "express": "^4.15.4",
+    "pug": "^2.0.0-rc.4",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0"
+  }
+}
