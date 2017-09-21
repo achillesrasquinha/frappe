@@ -5,7 +5,7 @@ SAMPLEDIR = $(realpath examples)
 
 install:
 	npm  install
-	yarn install 
+	yarn install
 
 run:
 	$(ELECTRON) -r babel-register $(SAMPLEDIR)/hello-world

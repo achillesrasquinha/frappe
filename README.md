@@ -10,7 +10,7 @@ app.run()
 ```
 
 ```console
-$ desk new     erpnext.desk          # creating a desk
+$ desk new     erpnext.desk          # create a desk
 $ desk install erpnext erpnext.desk  # installing frappe apps onto desk
 $ desk run     erpnext.desk          # launching desk
 $ desk build   erpnext.desk          # building .exe, .dmg, .etc
