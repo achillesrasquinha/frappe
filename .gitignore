@@ -1,0 +1,9 @@
+.venv
+
+# Build
+build
+dist
+*.egg-info
+
+# Dependencies
+node_modules
