@@ -16,3 +16,10 @@ app.get('/', () => {
 
 app.run()
 ```
+
+##### Templates
+```js
+app.get('/', () => {
+    return frappe.render('index')
+})
+```

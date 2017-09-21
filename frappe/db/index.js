@@ -1,6 +1,10 @@
-const DB =
+import DB from './DB'
+
+const db   = { }
+
+db.connect = (uri) => 
 {
+    return new DB(uri)
+} 
 
-}
-
-export default DB
+export default db

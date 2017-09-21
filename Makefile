@@ -1,2 +1,4 @@
-run:
-	
+install:
+	npm install .
+
+	bundle install
