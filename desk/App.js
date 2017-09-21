@@ -8,7 +8,6 @@ class App
     constructor (config = { })
     {
         this.config = Object.assign({ }, Config, config)
-        console.log(this.config)
         this.app    = app
     }
 
