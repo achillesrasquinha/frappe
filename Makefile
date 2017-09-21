@@ -4,7 +4,7 @@ ELECTRON  = $(PATH_NODE)/.bin/electron
 SAMPLEDIR = $(realpath examples)
 
 install:
-	npm  install .
+	npm  install
 	yarn install 
 
 run:
