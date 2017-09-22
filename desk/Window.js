@@ -22,6 +22,7 @@ class Window
         const temppath = path.join(Config.path.templates, `${template}.pug`)
         const url      = new URL(`file://${temppath}`)
 
+
         this.instance.loadURL(url.toString())
     }
 }

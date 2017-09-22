@@ -3,9 +3,7 @@
   "version": "0.1.0",
   "description": "Build Desktop Frappe Apps",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/achillesrasquinha/frappe.git"
@@ -26,7 +24,10 @@
     "commander": "^2.11.0",
     "electron": "^1.7.6",
     "grpc": "^1.6.0",
-    "pug": "^2.0.0-rc.4"
+    "mkdirp": "^0.5.1",
+    "nodegit": "^0.20.2",
+    "pug": "^2.0.0-rc.4",
+    "request": "^2.82.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

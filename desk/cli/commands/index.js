@@ -1,4 +1,4 @@
-import new_desk from './new'
+import naya     from './naya'
 import install  from './install'
 import run      from './run'
 import build    from './build'
@@ -6,9 +6,9 @@ import build    from './build'
 const commands  = 
 [
     {
-              alias: 'new',
+              alias: 'new <name> [desks...]',
         description: 'create a new desk',
-             action: new_desk
+             action: naya
     }
 ]
 
