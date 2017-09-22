@@ -1,13 +1,14 @@
 import commander from 'commander'
 
 import Config    from '../Config'
-import command   from './command'
+import commands  from './commands'
 
 const program = commander
 
-program.version(Config.app.version)
-       .command('new')
-       .description('create a new desk')
-       .action(command.new)
+commands.forEach((command) => {
+    program.command(command.alias)
+           .description(command.description)
+           .action(command.action)
+})
 
 export default program
