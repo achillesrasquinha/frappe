@@ -124,10 +124,8 @@ function pack(output_path, inputs, minify) {
 
 function babelify(content, path, minify) {
 	let presets = ['env'];
-	// The following snippet has been minified
-	// Why? Frappe Desk failes to load after minification
-	// TODO - Error Trace
-	
+	// Minification fails to launch the desk
+	// TODO - Trace Error
 	// if(minify) {
 	// 	presets.push('minify');
 	// }
