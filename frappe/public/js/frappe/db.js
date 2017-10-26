@@ -43,6 +43,17 @@ frappe.db = {
 			}
 		});
 	},
+	get_doc: function (doctype, name) {
+		return new Promise ((resolve) => {
+			frappe.call({
+				method: "frappe.client.get",
+				args: { doctype, name },
+				callback: (response) => {
+					resolve(response.message)
+				}
+			})
+		})
+	},
 	set_value: function(doctype, docname, fieldname, value, callback) {
 		return frappe.call({
 			method: "frappe.client.set_value",

@@ -10,7 +10,6 @@
  */
 
 frappe.ui.CommentArea = class CommentArea {
-
 	constructor({ parent = null, mentions = [], on_submit = null, no_wrapper = false }) {
 		this.parent = $(parent);
 		this.mentions = mentions;

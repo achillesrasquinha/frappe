@@ -1,0 +1,24 @@
+.frappe-chat-editor-wrapper {
+  position: relative;
+}
+.frappe-chat-sidebar-search {
+  padding-top: 15px;
+}
+.frappe-chat-room {
+  padding: 15px;
+}
+.frappe-chat-message-list {
+  height: 650px;
+  padding: 15px;
+  overflow-y: scroll;
+}
+.frappe-chat-editor {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15px;
+}
+.frappe-chat-editor .panel {
+  margin: 0 !important;
+}

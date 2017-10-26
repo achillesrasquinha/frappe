@@ -184,6 +184,47 @@ frappe.dom = {
 	},
 	is_touchscreen: function() {
 		return ('ontouchstart' in window)
+	},
+	awesome_completify: function(input) {
+		function split(val) {
+			return val.split( /,\s*/ );
+		}
+		function extractLast(term) {
+			return split(term).pop();
+		}
+
+		var awesomplete = new Awesomplete(input, {
+			minChars: 0,
+			maxItems: 99,
+			autoFirst: true,
+			list: [],
+			item: function(item, input) {
+				return $('<li>').text(item.value).get(0);
+			},
+			filter: function(text, input) { return true },
+			replace: function(text) {
+				var before = this.input.value.match(/^.+,\s*|/)[0];
+				this.input.value = before + text + ", ";
+			}
+		});
+		var delay_timer;
+		var $input = $(input);
+		$input.on("input", function(e) {
+			clearTimeout(delay_timer);
+			delay_timer = setTimeout(function() {
+				var term = e.target.value;
+				frappe.call({
+					method:'frappe.email.get_contact_list',
+					args: {
+						'txt': extractLast(term) || '%'
+					},
+					quiet: true,
+					callback: function(r) {
+						awesomplete.list = r.message || [];
+					}
+				});
+			},250);
+		});
 	}
 }
 
