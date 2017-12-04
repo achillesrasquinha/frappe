@@ -8,10 +8,23 @@ from frappe import _
 from bs4 import BeautifulSoup
 from PyPDF2 import PdfFileWriter, PdfFileReader
 
+import frappe
+
 def get_pdf(html, options=None, output = None):
 	html = scrub_urls(html)
 	html, options = prepare_options(html, options)
 	fname = os.path.join("/tmp", "frappe-pdf-{0}.pdf".format(frappe.generate_hash()))
+
+	# Node PDF
+	redis = frappe.async.get_redis_server()
+	mess  = dict(html = html, options = dict(format = 'A4'))
+	
+	# Should I be speaking to socket.io directly? I don't think so.
+	# Unless, node tends to become distributed too.
+	# X clients -> 1 Python -> 1 Node
+	# X clients <- 1 Python <- 1 Node
+	redis.publish('pdf', frappe.as_json(mess))
+	# end node
 
 	try:
 		pdfkit.from_string(html, fname, options=options or {})

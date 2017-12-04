@@ -21,6 +21,10 @@ var files_struct = {
 
 var subscriber = redis.createClient(conf.redis_socketio || conf.redis_async_broker_port);
 
+// Node PDF
+var pdf = require('html-pdf');
+// end
+
 // serve socketio
 http.listen(conf.socketio_port, function() {
   console.log('listening on *:', conf.socketio_port); //eslint-disable-line
@@ -198,10 +202,23 @@ io.on('connection', function(socket) {
 });
 
 subscriber.on("message", function(channel, message) {
-	message = JSON.parse(message);
 	io.to(message.room).emit(message.event, message.message);
-	// console.log(message.room, message.event, message.message)
 });
+
+// Node PDF
+subscriber.on("message", function (channel, message) {
+	if ( channel === 'pdf' ) {
+		const mess = JSON.parse(message)
+		const html = mess.html
+		const opts = mess.options
+
+		pdf.create(html, opts).toFile('foobar.pdf', function (err, res) {
+			console.log(res.filename)
+		})
+	}
+});
+subscriber.subscribe("pdf");
+// end Node
 
 subscriber.subscribe("events");
 
