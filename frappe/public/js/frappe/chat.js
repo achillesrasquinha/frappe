@@ -1,3 +1,8 @@
+/**
+ * @todo
+ */
+// - [ ] Fix Frappe FAB with Popper
+
 // frappe Chat
 // Author - Achilles Rasquinha <achilles@frappe.io>
 
@@ -1666,8 +1671,7 @@ class extends Component
     {
         const { props, state } = this
         
-        return !state.destroy ?
-        (
+        return !state.destroy ? (
             h("div", { class: "frappe-chat-popper" },
                 !props.target ?
                     h(frappe.components.FAB, {
@@ -1680,21 +1684,17 @@ class extends Component
                 state.active ?
                     h("div", { class: "frappe-chat-popper-collapse" },
                         props.page ? props.page : (
-                            h("div", { class: `panel panel-primary ${frappe._.is_mobile() ? "panel-span" : ""}` },
-                                h("div", { class: "panel-heading cursor-pointer", onclick: () => this.toggle(false) },
+                            h("div", { class: `panel panel-primary ${frappe._.is_mobile() || state.span ? "panel-span" : ""}` },
+                                h("div", { class: "panel-heading cursor-pointer", /*onclick: () => this.toggle(false)*/ },
                                     h("div", { class: "row" },
                                         h("div", { class: "col-xs-9" }),
                                         h("div", { class: "col-xs-3" },
                                             h("div", { class: "text-right" },
-                                                // !frappe._.is_mobile() ?
-                                                //     h("a", { class: "action", onclick: () =>
-                                                //         {
-                                                //             frappe.set_route('chat')
-                                                //             this.toggle(false)
-                                                //         }},
-                                                //         h(frappe.components.FontAwesome, { type: "expand", fixed: true })
-                                                //     ) : null,
-                                                h("a", { class: "action", onclick: () => this.toggle(false) },
+                                                !frappe._.is_mobile() ?
+                                                    h("a", { class: "panel-heading-action", onclick: () => this.set_state({ span: state.span ? false : true }) },
+                                                        h(frappe.components.FontAwesome, { type: state.span ? "compress" : "expand", fixed: true })
+                                                    ) : null,
+                                                h("a", { class: "panel-heading-action", onclick: () => this.toggle(false) },
                                                     h(frappe.components.Octicon, { type: "x" })
                                                 )
                                             )
@@ -1711,9 +1711,9 @@ class extends Component
         ) : null
     }
 }
-frappe.Chat.Widget.Popper.defaultState
-=
+frappe.Chat.Widget.Popper.defaultState =
 {
+       span: false,
      active: false,
     destroy: false
 }

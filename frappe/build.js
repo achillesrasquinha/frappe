@@ -261,7 +261,7 @@ function watch_less(ondirty) {
 	const less_paths = app_paths.map(path => path_join(path, 'public', 'less'));
 
 	const to_watch = filter_valid_paths(less_paths);
-	chokidar.watch(to_watch).on('change', (filename) => {
+	chokidar.watch(to_watch).on('all', (filename) => {
 		console.log(filename, 'dirty');
 		var last_index = filename.lastIndexOf('/');
 		const less_path = filename.slice(0, last_index);
