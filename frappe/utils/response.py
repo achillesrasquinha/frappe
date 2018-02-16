@@ -46,7 +46,9 @@ def build_response(response_type=None):
 		'binary': as_binary
 	}
 
-	return response_type_map[frappe.response.get('type') or response_type]()
+	response = response_type_map[frappe.response.get('type') or response_type]()
+
+	response.headers[b'Access-Control-Allow-Origin'] = '*'
 
 def as_csv():
 	response = Response()
