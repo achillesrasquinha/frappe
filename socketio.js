@@ -48,9 +48,6 @@ io.on('connection', function(socket) {
 	if(!sid) {
 		return;
 	}
-
-	
-	
 	
 	if(flags[sid]) {
 		// throttle this function
