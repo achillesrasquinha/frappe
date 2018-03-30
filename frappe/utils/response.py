@@ -21,6 +21,7 @@ from frappe.core.doctype.file.file import check_file_permission
 from frappe.website.render import render
 from frappe.utils import cint
 from six import text_type
+from six.moves.urllib.parse import quote
 
 def report_error(status_code):
 	'''Build error. Show traceback in developer mode'''
@@ -52,14 +53,14 @@ def as_csv():
 	response = Response()
 	response.mimetype = 'text/csv'
 	response.charset = 'utf-8'
-	response.headers["Content-Disposition"] = ("attachment; filename=\"%s.csv\"" % frappe.response['doctype'].replace(' ', '_')).encode("utf-8")
+	response.headers["Content-Disposition"] = ("attachment; filename=\"%s.csv\"" % quote(frappe.safe_encode(frappe.response['doctype'].replace(' ', '_'))))
 	response.data = frappe.response['result']
 	return response
 
 def as_raw():
 	response = Response()
 	response.mimetype = frappe.response.get("content_type") or mimetypes.guess_type(frappe.response['filename'])[0] or "application/unknown"
-	response.headers["Content-Disposition"] = ("filename=\"%s\"" % frappe.response['filename'].replace(' ', '_')).encode("utf-8")
+	response.headers["Content-Disposition"] = ("filename=\"%s\"" % quote(frappe.safe_encode(frappe.response['filename'].replace(' ', '_'))))
 	response.data = frappe.response['filecontent']
 	return response
 
@@ -78,7 +79,7 @@ def as_json():
 def as_binary():
 	response = Response()
 	response.mimetype = 'application/octet-stream'
-	response.headers["Content-Disposition"] = ("filename=\"%s\"" % frappe.response['filename'].replace(' ', '_')).encode("utf-8")
+	response.headers["Content-Disposition"] = ("filename=\"%s\"" % quote(frappe.safe_encode(frappe.response['filename'].replace(' ', '_'))))
 	response.data = frappe.response['filecontent']
 	return response
 
