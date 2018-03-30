@@ -20,8 +20,39 @@ from werkzeug.exceptions import NotFound, Forbidden
 from frappe.core.doctype.file.file import check_file_permission
 from frappe.website.render import render
 from frappe.utils import cint
-from six import text_type
-from six.moves.urllib.parse import quote
+from six import text_type, iteritems
+import unicodedata
+try:
+    from werkzeug.urls import url_quote
+except ImportError:
+    from six.moves.urllib.parse import quote as url_quote
+
+def normalize_filename(value, extension = '', as_string = False):
+	value      = text_type(value)
+	noramlized = unicodedata.normalize(value)
+
+	filenames  = { }
+
+	try:
+		normalized.encode('ascii')
+	except UnicodeDecodeError:
+		filenames = {
+			'filename': noramlized.encode('ascii', 'ignore'),
+			'filename*': "UTF-8''{filename}{extension}".format(
+				filename = url_quote(filename),
+				extension = extension
+			) 
+		}
+	else:
+		filenames = {'filename': attachment_filename}
+
+	if as_string:
+		stringed = ""
+		for key, value in iteritems(filenames):
+			stringed += "{key}={value};"
+		filenames = stringed
+
+	return filenames
 
 def report_error(status_code):
 	'''Build error. Show traceback in developer mode'''
@@ -53,14 +84,22 @@ def as_csv():
 	response = Response()
 	response.mimetype = 'text/csv'
 	response.charset = 'utf-8'
-	response.headers["Content-Disposition"] = ("attachment; filename=\"%s.csv\"" % quote(frappe.safe_encode(frappe.response['doctype'].replace(' ', '_'))))
+
+	filename = frappe.response['doctype'].replace(' ', '_')
+	filename = normalize_filename(filename, as_string = True)
+
+	response.headers["Content-Disposition"] = ("attachment; {filename}".format(filename = filename))
 	response.data = frappe.response['result']
 	return response
 
 def as_raw():
 	response = Response()
 	response.mimetype = frappe.response.get("content_type") or mimetypes.guess_type(frappe.response['filename'])[0] or "application/unknown"
-	response.headers["Content-Disposition"] = ("filename=\"%s\"" % quote(frappe.safe_encode(frappe.response['filename'].replace(' ', '_'))))
+	
+	filename = frappe.response['filename'].replace(' ', '_')
+	filename = normalize_filename(filename, as_string = True)
+
+	response.headers["Content-Disposition"] = ("{filename}".format(filename = filename))
 	response.data = frappe.response['filecontent']
 	return response
 
@@ -79,7 +118,11 @@ def as_json():
 def as_binary():
 	response = Response()
 	response.mimetype = 'application/octet-stream'
-	response.headers["Content-Disposition"] = ("filename=\"%s\"" % quote(frappe.safe_encode(frappe.response['filename'].replace(' ', '_'))))
+
+	filename = frappe.response['filename'].replace(' ', '_')
+	filename = normalize_filename(filename, as_string = True)
+
+	response.headers["Content-Disposition"] = ("{filename}".format(filename = filename))
 	response.data = frappe.response['filecontent']
 	return response
 
